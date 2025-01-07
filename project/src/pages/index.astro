@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const students = await getCollection('students');
+console.log(students);
+
 ---
 
 <Layout>
-	<Welcome />
+	<h1>Students</h1>
+	{
+		students.map((student) => 
+		
+		<div style = "display:flex; gap:1em;">
+
+			<p>NAME: {student.data.name.toUpperCase()}</p> 
+			<p>GRADE: {student.data.grade} </p>
+			<p>ALLERGIES: {student.data.allergies} </p>
+
+			
+		</div>
+	)	
+	}
 </Layout>
