@@ -1,25 +1,73 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
 
-const students = await getCollection('students');
-console.log(students);
+//const students = await getCollection("students");
+//const filteredBlog = await getCollection("blog", ({data}) => data.author === 'jake');
+
+//console.log(blog);
+
+//const post1 = await getEntry("blog", "page-1");
+
+//console.log(post1);
+
+//const  {Content, headings, remarkPluginFrontmatter} =  await post1.render();
+
+//console.log(await post1?.render());
+
+import { getCollection } from "astro:content";
+
+const blog = await getCollection("blog");
 
 ---
+<h1> List of Blog Posts </h1>
+{
+  blog.map((post) => (
+   <li><a href={`/blog/${post.slug}/`}>{post.data.title}</a></li> 
+  ))
+}
 
-<Layout>
-	<h1>Students</h1>
+
+
+
+
+
+
+
+
+<!-- 
+	<h1> My Blog </h1>
+	
+	<h1>Non Filtered</h1>
 	{
-		students.map((student) => 
-		
-		<div style = "display:flex; gap:1em;">
-
-			<p>NAME: {student.data.name.toUpperCase()}</p> 
-			<p>GRADE: {student.data.grade} </p>
-			<p>ALLERGIES: {student.data.allergies} </p>
-
-			
-		</div>
-	)	
+		blog.map((post) => 	<li><a href = {post.slug}>{post.slug}</a></li>)
 	}
-</Layout>
+
+<h1> Filtered</h1>
+
+	{
+		filteredBlog.map((post) => 	<li><a href = {post.slug}>{post.slug}</a></li>)
+	}
+
+		<p>{post1.data.title}</p>
+
+		<p>{post1.body}</p>
+
+		<h1>post content </h1>
+
+		<Content/>
+
+		<h1> Headings Manually </h1>
+		<p> {headings[0].text}</p>
+		<p> {headings[1].text}</p>
+
+
+		<h1> Headings Dynamically</h1>
+
+		{
+			headings.map((heading) => <p>{heading.text}</p>)
+		}
+
+
+		{
+			remarkPluginFrontmatter.author
+
+		}-->

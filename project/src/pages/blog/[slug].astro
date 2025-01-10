@@ -1,0 +1,26 @@
+---
+import { getCollection , getEntry } from "astro:content";
+
+// Generate static paths
+export async function getStaticPaths() {
+  const blog = await getCollection("blog");
+
+  // Return an array of paths
+  return blog.map((post) => ({
+    params: { slug: post.slug }, //params is needed for getStaticPaths() to work
+  }));
+}
+
+const { slug } = Astro.params;
+
+const blog = await getEntry("blog", slug);
+
+if (!blog) {
+  throw new Error(`Blog post with slug "${slug}" not found.`);
+}
+
+const { Content } = await blog.render();
+---
+
+<h1>{blog.data.title}</h1>
+<Content />

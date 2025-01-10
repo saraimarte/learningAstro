@@ -6,18 +6,29 @@ import { defineCollection } from "astro:content";
 //import zod from the api 
 import { z } from "astro:content"; 
 
+//create a collection of students
 const students = defineCollection({
 //schema/blueprint
-    type: "data" , //only two type of data collections - data and content 
+    type: "data" , //data collection 
     schema : z.object({
         name : z.string(),
         grade : z.enum(['1', '2', '3', '4', '5']),
         allergies : z.string().optional(),
     }),
-    //only two types of data tiles json or yaml
+});
+
+const blog = defineCollection({
+//schema/blueprint
+    type: "content" , // content collection 
+    schema : z.object({
+        title : z.string(),
+        author : z.string(),
+        description : z.string().optional(),
+    }),
 });
 
 //export your collections 
 export const collections = {
-    students, 
+    students,
+    blog, 
 }
